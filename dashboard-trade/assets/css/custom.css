@@ -1,0 +1,154 @@
+.auth-bg {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.auth-overlay {
+  position: absolute;
+  top: 0;
+  background-color: #000000d1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+.loader {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  background-color: white;
+  z-index: 1000000;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+.loader > div {
+  width: 220px;
+  height: 220px;
+  background-size: contain;
+  background-position: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.loader > div > img {
+  width: 100px;
+}
+.select-coin {
+  margin: 3px;
+  padding: 22px 0;
+  border-radius: 50%;
+  transition: 0.7s all;
+  cursor: pointer;
+}
+span.bg-primary.circle {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  color: white;
+  border-radius: 50%;
+}
+a.select-plan.bg-primary {
+  color: white;
+}
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: unset !important;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.bg-style {
+  padding: 20px;
+  margin-bottom: 20px;
+  color: #2d2929;
+  border-radius: 10px;
+  min-height: 200px;
+  background-position: right;
+  background-repeat: no-repeat;
+  background-color: #c7c4f8;
+  position: relative;
+}
+.bg-style > div:last-child {
+  position: absolute;
+  right: 5%;
+  top: -70%;
+  width: 42%;
+}
+@media screen and (max-width: 576px) {
+  .bg-style > div:last-child {
+    top: unset;
+    bottom: 0;
+    right: 0;
+  }
+}
+.jqvmap-label,
+.jqvmap-pin {
+  pointer-events: none;
+}
+.jqvmap-label {
+  position: absolute;
+  display: none;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #292929;
+  color: #fff;
+  font-family: sans-serif, Verdana;
+  font-size: smaller;
+  padding: 3px;
+}
+.jqvmap-zoomin,
+.jqvmap-zoomout {
+  position: absolute;
+  left: 10px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  background: #000;
+  padding: 3px;
+  color: #fff;
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+  line-height: 10px;
+  text-align: center;
+}
+.jqvmap-zoomin {
+  top: 10px;
+}
+.jqvmap-zoomout {
+  top: 30px;
+}
+.jqvmap-region {
+  cursor: pointer;
+}
+.jqvmap-ajax_response {
+  width: 100%;
+  height: 500px;
+}
+figure.avatar-photo {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+.btn-flat {
+  border: unset;
+  box-shadow: unset;
+  opacity: 0.7;
+}
