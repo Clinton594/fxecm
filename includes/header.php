@@ -1,6 +1,7 @@
+  <?php $banner = $uri->page_source == "" ? "" : "in-header-inner"; ?>
   <header>
     <!-- header content begin -->
-    <div class="uk-section uk-padding-remove-vertical">
+    <div class="uk-section uk-padding-remove-vertical <?= $banner ?>">
       <nav class="uk-navbar-container" data-uk-sticky="show-on-up: true; animation: uk-animation-slide-top;">
         <div class="uk-container" data-uk-navbar>
           <div class="uk-navbar-left">
@@ -16,8 +17,8 @@
                 <li><a href="<?= $uri->site ?>education">Trading Training</a></li>
 
                 <li><a href="<?= $uri->site ?>about">About</a></li>
-                <li><a href="<?= $uri->site ?>careers">Careers</a></li>
                 <li><a href="<?= $uri->site ?>contact">Contact</a></li>
+                <li><a href="<?= $uri->site ?>faq">FAQ</a></li>
               </ul>
               <!-- navigation end -->
             </div>

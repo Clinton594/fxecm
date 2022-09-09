@@ -27,10 +27,11 @@ $fmn->setAttribute(NumberFormatter::FRACTION_DIGITS, 2);
 
 $valid_pages = [
   '' => "views/home.php",
+  'markets' => "views/markets.php",
   'home2' => "views/home1.php",
   'faq' => "views/faq.php",
   'contact' => "views/contact.php",
-  'about-us' => "views/about-us.php",
+  'about' => "views/about.php",
   'terms' => "views/terms-and-conditions.php",
 
   'confirm-email' => "{$generic->dashboard}views/client-confirm-email.php",
@@ -51,7 +52,7 @@ $valid_pages = [
   'operations' => "{$generic->dashboard}views/client-payment.php",
   'join-affiliate' => "{$generic->dashboard}views/client-settings.php",
 ];
-$cache_control = "?preloader";
+$cache_control = "?preloaders";
 $company->logo_ref .= $cache_control;
 $company->favicon .= $cache_control;
 $company->favicon2 .= $cache_control;

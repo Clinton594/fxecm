@@ -1,6 +1,6 @@
+<?php $plans = $generic->getFromTable("content", "status=1, type=investment", 1, 4) ?>
 <!DOCTYPE html>
 <html lang="zxx" dir="ltr">
-
 
 <head>
   <title>Home - <?= $company->name ?></title>
@@ -61,7 +61,7 @@
                   </div>
                 </div>
                 <div class="uk-width-1-2@s">
-                  <img class="in-slide-img" src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/p2p_home_banner.webp" alt="image-slide" width="500" height="400" data-uk-img>
+                  <img class="in-slide-img" src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-7-mockup.png" alt="image-slide" width="500" height="400" data-uk-img>
                 </div>
               </div>
             </div>
@@ -92,7 +92,7 @@
               <div class="uk-width-5-6@m">
                 <div class="uk-grid uk-child-width-1-6@m uk-text-center" data-uk-grid>
                   <div class="uk-width-1-1">
-                    <p class="uk-text-lead">1700+ market. Countless opportunities.</p>
+                    <p class="uk-text-lead">Our markets with countless opportunities.</p>
                   </div>
                   <div class="slide-icons-1">
                     <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-icon-5.svg" alt="sample-icon" width="48" height="48" data-uk-img>
@@ -100,7 +100,7 @@
                   </div>
                   <div class="slide-icons-1">
                     <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-icon-6.svg" alt="sample-icon" width="48" height="48" data-uk-img>
-                    <a class="uk-button uk-button-text uk-align-center" href="<?= $uri->site ?>markets">Indices<i class="fas fa-angle-right uk-margin-small-left"></i></a>
+                    <a class="uk-button uk-button-text uk-align-center" href="<?= $uri->site ?>markets">Synthetics<i class="fas fa-angle-right uk-margin-small-left"></i></a>
                   </div>
                   <div class="slide-icons-1">
                     <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-icon-7.svg" alt="sample-icon" width="48" height="48" data-uk-img>
@@ -108,7 +108,7 @@
                   </div>
                   <div class="slide-icons-1">
                     <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-icon-8.svg" alt="sample-icon" width="48" height="48" data-uk-img>
-                    <a class="uk-button uk-button-text uk-align-center" href="<?= $uri->site ?>markets">Shares<i class="fas fa-angle-right uk-margin-small-left"></i></a>
+                    <a class="uk-button uk-button-text uk-align-center" href="<?= $uri->site ?>markets">Stock<i class="fas fa-angle-right uk-margin-small-left"></i></a>
                   </div>
                   <div class="slide-icons-1">
                     <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-icon-9.svg" alt="sample-icon" width="48" height="48" data-uk-img>
@@ -116,11 +116,12 @@
                   </div>
                   <div class="slide-icons-1">
                     <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-icon-10.svg" alt="sample-icon" width="48" height="48" data-uk-img>
-                    <a class="uk-button uk-button-text uk-align-center" href="<?= $uri->site ?>markets">All Markets<i class="fas fa-angle-right uk-margin-small-left"></i></a>
+                    <a class="uk-button uk-button-text uk-align-center" href="<?= $uri->site ?>markets">Explore<i class="fas fa-angle-right uk-margin-small-left"></i></a>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -129,6 +130,45 @@
     <!-- section content begin -->
     <div class="uk-section in-liquid-6">
       <div class="uk-container">
+        <div class="uk-grid" style="width: 100%; position:relative">
+          <div class="tradingview-widget-container" style="position: absolute;top: -90px;">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+              {
+                "symbols": [{
+                    "proName": "FOREXCOM:SPXUSD",
+                    "title": "S&P 500"
+                  },
+                  {
+                    "proName": "FOREXCOM:NSXUSD",
+                    "title": "US 100"
+                  },
+                  {
+                    "proName": "FX_IDC:EURUSD",
+                    "title": "EUR/USD"
+                  },
+                  {
+                    "proName": "BITSTAMP:BTCUSD",
+                    "title": "Bitcoin"
+                  },
+                  {
+                    "proName": "BITSTAMP:ETHUSD",
+                    "title": "Ethereum"
+                  },
+                  {
+                    "description": "Solana",
+                    "proName": "BINANCE:SOLUSDT"
+                  }
+                ],
+                "showSymbolLogo": true,
+                "colorTheme": "light",
+                "isTransparent": false,
+                "displayMode": "adaptive",
+                "locale": "en"
+              }
+            </script>
+          </div>
+        </div>
         <div class="uk-grid uk-flex uk-flex-middle" data-uk-grid>
           <div class="uk-width-expand@m">
             <h2>Simple. <br> Reliable. <span class="in-highlight">Flexible</span>.</h2>
@@ -172,169 +212,139 @@
             <p class="uk-text-small uk-text-muted uk-text-center uk-margin-top">Graphic is for illustration purpose only and should not be relied upon for investment decisions.</p>
           </div>
         </div>
+
+
+      </div>
+    </div>
+    <div class="uk-section in-liquid-2">
+      <div class="uk-container">
+        <div class="uk-grid-large uk-child-width-1-2@m uk-grid" data-uk-grid="">
+          <div class="uk-flex uk-flex-left uk-first-column">
+            <div class="uk-margin-right">
+              <img src="<?= $uri->site ?>assets/img/in-liquid-icon-1.svg" data-src="assets/img/in-liquid-icon-1.svg" alt="sample-icon" width="128" height="128" data-uk-img="">
+            </div>
+            <div>
+              <h3>Proven track record</h3>
+              <p><?= $company->name ?> – the co-owners of the Binary.com brands – has a history that dates back to 1999 when we laid the groundwork for the world’s first fixed-odds trading service.</p>
+              <a class="uk-button uk-button-text" href="<?= $uri->site ?>about">Learn more<i class="fas fa-long-arrow-alt-right uk-margin-small-left"></i></a>
+
+            </div>
+          </div>
+          <div class="uk-flex uk-flex-left">
+            <div class="uk-margin-right">
+              <img src="<?= $uri->site ?>assets/img/in-liquid-icon-2.svg" data-src="assets/img/in-liquid-icon-2.svg" alt="sample-icon" width="128" height="128" data-uk-img="">
+            </div>
+            <div>
+              <h3>Licensed and regulated</h3>
+              <p><?= $company->name ?> is regulated by several entities including the Malta Financial Services Authority (MFSA), the Labuan Financial Services Authority (Labuan FSA)...</p>
+              <a class="uk-button uk-button-text" href="<?= $uri->site ?>about">Learn more<i class="fas fa-long-arrow-alt-right uk-margin-small-left"></i></a>
+
+            </div>
+          </div>
+          <div class="uk-flex uk-flex-left uk-grid-margin uk-first-column">
+            <div class="uk-margin-right">
+              <img src="<?= $uri->site ?>assets/img/in-liquid-icon-3.svg" data-src="assets/img/in-liquid-icon-3.svg" alt="sample-icon" width="128" height="128" data-uk-img="">
+            </div>
+            <div>
+              <h3>Client money protection</h3>
+              <p><?= $company->name ?> does not use your money for its business interests and you are allowed to withdraw your money at any time. </p>
+              <a class="uk-button uk-button-text" href="<?= $uri->site ?>about">Learn more<i class="fas fa-long-arrow-alt-right uk-margin-small-left"></i></a>
+
+            </div>
+          </div>
+          <div class="uk-flex uk-flex-left uk-grid-margin">
+            <div class="uk-margin-right">
+              <img src="<?= $uri->site ?>assets/img/in-liquid-icon-4.svg" data-src="assets/img/in-liquid-icon-4.svg" alt="sample-icon" width="128" height="128" data-uk-img="">
+            </div>
+            <div>
+              <h3>Risk awareness and management</h3>
+              <p>Online trading is exciting but involves risks and can lead to an addiction. At <?= $company->name ?>, we look out for our customers’ responsible trading.</p>
+              <a class="uk-button uk-button-text" href="<?= $uri->site ?>about">Learn more<i class="fas fa-long-arrow-alt-right uk-margin-small-left"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="uk-grid uk-flex uk-flex-center">
+          <div class="uk-width-5-6@m uk-margin-medium-top">
+            <div class="uk-card uk-card-default uk-card-body uk-background-contain uk-background-top-left" style="background-image: url(img/in-liquid-card-bg.png);" data-uk-img="">
+              <div class="uk-grid uk-child-width-1-3@s uk-child-width-1-3@m uk-text-center uk-grid-stack" data-uk-grid="">
+                <div class="uk-width-1-1 uk-first-column">
+                  <h4><span>Simple steps to start trade.</span></h4>
+                </div>
+                <div class="uk-first-column">
+                  <span class="in-icon-wrap circle">1</span>
+                  <p>Register account</p>
+                </div>
+                <div class="uk-first-column">
+                  <span class="in-icon-wrap circle">2</span>
+                  <p>Fund your account</p>
+                </div>
+                <div class="uk-first-column">
+                  <span class="in-icon-wrap circle">3</span>
+                  <p>Start your trade</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <!-- section content end -->
-    <!-- section content begin -->
-    <div class="uk-section in-liquid-7 in-offset-top-10">
+    <div class="uk-section uk-section-muted uk-padding-large in-liquid-3 uk-background-contain uk-background-center-center" style="background-image: url(img/in-liquid-3-bg.png);" data-uk-img="">
       <div class="uk-container">
         <div class="uk-grid uk-flex uk-flex-center">
-          <div class="uk-width-5-6@m uk-background-contain uk-background-center-center" style="background-image: url(<?= $uri->site ?>assets/img/in-liquid-7-bg.png);" data-uk-img>
-            <div class="uk-text-center">
-              <h2 class="uk-margin-remove">Liquid trading platform.</h2>
-              <p class="uk-text-lead uk-text-muted uk-margin-small-top">Improve your trading results with our industry-leading technology</p>
-            </div>
-            <div class="uk-grid-medium uk-child-width-1-3@s uk-child-width-1-3@m uk-text-center uk-margin-top" data-uk-grid>
-              <div>
-                <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-award.svg" alt="wave-award" width="71" height="58" data-uk-img>
-                <h6 class="uk-margin-small-top uk-margin-remove-bottom">Best CFD Broker</h6>
-                <p class="uk-text-small uk-margin-remove-top">TradeON Summit 2020</p>
+          <div class="uk-width-5-6@m uk-inline">
+            <div class="uk-grid-large uk-flex uk-flex-middle uk-flex-right uk-grid uk-grid-stack" data-uk-grid="">
+              <div class="uk-position-top-left uk-first-column">
+                <img src="assets/img/in-liquid-3-mockup.png" data-src="assets/img/in-liquid-3-mockup.png" alt="sample-images" width="650">
               </div>
-              <div>
-                <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-award.svg" alt="wave-award" width="71" height="58" data-uk-img>
-                <h6 class="uk-margin-small-top uk-margin-remove-bottom">Best Execution Broker</h6>
-                <p class="uk-text-small uk-margin-remove-top">Forex EXPO Dubai 2020</p>
+              <div class="uk-width-1-2@m uk-first-column">
+                <span class="uk-label in-liquid-label uk-margin-bottom">Coming soon on multiple platform</span>
+                <h2 class="uk-margin-remove">World class platform<br>trade without a doubt.</h2>
+                <p>Choose from 3 powerful platforms — each designed with your needs in mind.</p>
+                <div class="uk-grid-small uk-child-width-1-3 uk-child-width-1-4@m uk-margin-medium-top uk-text-center uk-grid" data-uk-grid="">
+                  <div class="uk-first-column">
+                    <i class="fab fa-apple in-icon-wrap"></i>
+                    <p class="uk-text-small">MacOS</p>
+                  </div>
+                  <div>
+                    <i class="fab fa-windows in-icon-wrap"></i>
+                    <p class="uk-text-small">Windows</p>
+                  </div>
+                  <div>
+                    <i class="fab fa-google-play in-icon-wrap"></i>
+                    <p class="uk-text-small">Android</p>
+                  </div>
+                </div>
               </div>
-              <div>
-                <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-award.svg" alt="wave-award" width="71" height="58" data-uk-img>
-                <h6 class="uk-margin-small-top uk-margin-remove-bottom">Best Trading Platform</h6>
-                <p class="uk-text-small uk-margin-remove-top">London Summit 2020</p>
-              </div>
-            </div>
-            <img class="uk-align-center" src="<?= $uri->site ?>assets/img/in-liquid-7-mockup.png" data-src="<?= $uri->site ?>assets/img/in-liquid-7-mockup.png" alt="sample-images" width="691" height="420" data-uk-img>
-            <div class="uk-grid-divider uk-child-width-1-2@s uk-child-width-1-4@m uk-text-center in-offset-top-10" data-uk-grid>
-              <div>
-                <h2 class="uk-margin-small-bottom">~30ms</h2>
-                <p class="uk-text-small uk-text-uppercase uk-margin-remove-top">executions speed*</p>
-              </div>
-              <div>
-                <h2 class="uk-margin-small-bottom">24/5</h2>
-                <p class="uk-text-small uk-text-uppercase uk-margin-remove-top">support</p>
-              </div>
-              <div>
-                <h2 class="uk-margin-small-bottom">0.0</h2>
-                <p class="uk-text-small uk-text-uppercase uk-margin-remove-top">spread from 0.0 pips</p>
-              </div>
-              <div>
-                <h2 class="uk-margin-small-bottom">150+</h2>
-                <p class="uk-text-small uk-text-uppercase uk-margin-remove-top">trading instruments</p>
-              </div>
-            </div>
-            <div class="uk-text-center uk-margin-medium-top">
-              <a class="uk-button uk-button-primary uk-border-rounded uk-margin-small-right" href="#">Create account<i class="fas fa-angle-right uk-margin-small-left"></i></a>
-              <a class="uk-button uk-button-secondary uk-border-rounded" href="#">Discover platform<i class="fas fa-angle-right uk-margin-small-left"></i></a>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- section content end -->
-    <!-- section content begin -->
-    <div class="uk-section uk-section-muted uk-padding-large in-liquid-8">
-      <div class="uk-container">
-        <div class="uk-grid uk-flex uk-flex-center in-offset-bottom-20">
-          <div class="uk-width-5-6@m uk-text-center">
-            <h2 class="uk-margin-remove">Liquid trading academy.</h2>
-            <p class="uk-text-lead uk-text-muted uk-margin-small-top">Explore, Learn, and Grow</p>
-            <div class="uk-grid-medium uk-child-width-1-3@m" data-uk-grid>
-              <div>
-                <div class="uk-card uk-card-default uk-card-body">
-                  <h6><i class="fas fa-video uk-margin-small-right"></i>9 Lessons 70+ Videos</h6>
-                </div>
-              </div>
-              <div>
-                <div class="uk-card uk-card-default uk-card-body">
-                  <h6><i class="fas fa-graduation-cap uk-margin-small-right"></i>Test your Knowledge</h6>
-                </div>
-              </div>
-              <div>
-                <div class="uk-card uk-card-default uk-card-body">
-                  <h6><i class="fas fa-award uk-margin-small-right"></i>Certificate Awarded</h6>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="uk-grid uk-grid-large uk-flex uk-flex-middle" data-uk-grid>
-          <div class="uk-width-3-5@m">
-            <div class="uk-inline uk-dark in-liquid-video uk-margin-small-bottom">
-              <img class="uk-border-rounded uk-width-1-1" src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-8-image.jpg" alt="sample-images" width="533" height="355" data-uk-img>
-              <div class="uk-position-center">
-                <a href="#link" data-uk-toggle>
-                  <div class="in-play-button"></div>
-                  <i class="fas fa-play"></i>
-                </a>
-              </div>
-              <div class="uk-flex-top" data-uk-modal>
-                <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical in-iframe">
-                  <button class="uk-modal-close-outside" type="button" data-uk-close></button>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="uk-width-expand@m">
-            <h3>What you will learn</h3>
-            <ul class="uk-list uk-list-bullet in-list-check">
-              <li>Introduction to Financial Trading</li>
-              <li>Technical Analysis</li>
-              <li>Fundamental Analysis</li>
-              <li>When to Enter & Exit Trades</li>
-              <li>How to Manage Risk</li>
-              <li>Trading Psychology</li>
-            </ul>
-            <a class="uk-button uk-button-primary uk-border-rounded uk-margin-small-top" href="#">Create demo account now<i class="fas fa-angle-right uk-margin-small-left"></i></a>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- section content end -->
     <!-- section content begin -->
     <div class="uk-section in-liquid-9">
       <div class="uk-container">
         <div class="uk-grid uk-flex uk-flex-center">
           <div class="uk-width-5-6@m uk-text-center">
             <h2 class="uk-margin-remove">Choose the best account type for you.</h2>
-            <div class="uk-grid-medium uk-child-width-1-3@s uk-child-width-1-5@m uk-margin-medium-top in-offset-bottom-20" data-uk-grid>
-              <div>
-                <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-icon-11.svg" alt="sample-icon" width="82" height="82" data-uk-img>
-                <p>Individual accounts</p>
-              </div>
-              <div>
-                <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-icon-12.svg" alt="sample-icon" width="82" height="82" data-uk-img>
-                <p>Join accounts</p>
-              </div>
-              <div>
-                <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-icon-13.svg" alt="sample-icon" width="82" height="82" data-uk-img>
-                <p>Trust accounts</p>
-              </div>
-              <div>
-                <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-icon-14.svg" alt="sample-icon" width="82" height="82" data-uk-img>
-                <p>Family account</p>
-              </div>
-              <div>
-                <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-icon-15.svg" alt="sample-icon" width="82" height="82" data-uk-img>
-                <p>Institutional</p>
-              </div>
-            </div>
-            <p class="uk-text-small uk-margin-medium-top in-text-devices"><span>Trade anywhere, anytime using our various platforms.</span></p>
+
+            <p class="uk-text-small uk-margin-medium-top in-text-devices"><span>Trade anywhere, anytime using any of our various platforms.</span></p>
             <div class="uk-card uk-card-default uk-card-body uk-box-shadow-small">
               <div class="uk-grid-divider uk-child-width-1-2@s uk-child-width-1-4@m" data-uk-grid>
-                <div>
-                  <i class="fab fa-apple"></i>
-                  <p class="uk-text-small">MacOS/iPhone</p>
-                </div>
-                <div>
-                  <i class="fab fa-android"></i>
-                  <p class="uk-text-small">Android app</p>
-                </div>
-                <div>
-                  <i class="fab fa-windows"></i>
-                  <p class="uk-text-small">Windows 10</p>
-                </div>
-                <div>
-                  <i class="fab fa-chrome"></i>
-                  <p class="uk-text-small">WebTrader</p>
-                </div>
+                <?php foreach ($plans as $key => $plan) { ?>
+                  <div>
+                    <img src="<?= $uri->site ?>assets/img/in-lazy.gif" data-src="<?= $uri->site ?>assets/img/in-liquid-icon-<?= 11 + $key ?>.svg" alt="sample-icon" width="30" height="30" data-uk-img>
+                    <b class="uk-text-small"><?= $plan->title ?></b>
+                    <p class="uk-text-small uk-margin-small-top">
+                      <small><b>Minimum</b> - <?= $currency . $fmn->format($plan->business) ?></small>
+                      <br>
+                      <small><b>Maximum</b> - <?= $currency . $fmn->format($plan->label) ?></small>
+                      <br>
+                      <small><b>ROI</b> - <?= $plan->auto ?>%</small>
+                    </p>
+                    <a href="<?= $uri->site ?>invest" style="font-size: xx-small; line-height:33px" class="uk-button uk-button-default uk-border-rounded uk-visible@s">Proceed</a>
+                  </div>
+                <?php } ?>
               </div>
             </div>
           </div>

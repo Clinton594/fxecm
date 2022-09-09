@@ -84,6 +84,7 @@ header .uk-navbar-container {
 header .in-header-inner {
   background-color: #212224;
   margin-top: -21px;
+  background-image: url(../img/in-liquid-slide-bg.png);
 }
 
 header .in-header-inner .uk-navbar-container {

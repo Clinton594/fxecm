@@ -10,7 +10,7 @@
                  <i class="fas fa-history in-icon-wrap"></i>
                </div>
                <div>
-                 <h6 class="uk-margin-remove">25 years of Excellence</h6>
+                 <h6 class="uk-margin-remove"><?= date("Y") - 1999 ?> years of Excellence</h6>
                </div>
              </div>
              <div class="uk-flex uk-flex-middle uk-flex-center@m">
@@ -110,5 +110,5 @@
  </footer>
  <!-- Javascript -->
  <script src="<?= $uri->site ?>assets/js/vendors/uikit.min.js"></script>
- <script src="<?= $uri->site ?>assets/js/vendors/blockit.min.js"></script>
+ <script src="<?= $uri->site ?>assets/js/vendors/blockit.min.js<?= $cache_control ?>"></script>
  <script src="<?= $uri->site ?>assets/js/config-theme.js"></script>
