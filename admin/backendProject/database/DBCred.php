@@ -5,15 +5,15 @@ class DBCred
   static $local_password = "root";
   static $local_server = "localhost";
   static $local_user = "root";
-  static $online_db = "u347871492_worldforexdeal";
-  static $online_password = "Worldforexdeal@2022?";
-  static $online_user = "u347871492_worldforexdeal";
+  static $online_db = "u347871492_fxecm";
+  static $online_password = "Fxecm@2022?";
+  static $online_user = "u347871492_fxecm";
   static $server = "localhost";
   static $local_servers = ['localhost', 'localhost:8080', "127.0.0.1"];
   public $backend = "admin/";
   public $dashboard = "dashboard-trade/";
   public $isReact = false;
-  public $secondary_email = "support@worldforexdeal.com";
+  public $secondary_email = "support@fxecm.com";
   static $foreign_exchange = [
     "API_KEY" => ""
   ];
