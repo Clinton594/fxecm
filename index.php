@@ -28,18 +28,21 @@ $fmn->setAttribute(NumberFormatter::FRACTION_DIGITS, 2);
 $valid_pages = [
   '' => "views/home.php",
   'markets' => "views/markets.php",
+  'education' => "views/education.php",
   'home2' => "views/home1.php",
   'faq' => "views/faq.php",
   'contact' => "views/contact.php",
   'about' => "views/about.php",
   'terms' => "views/terms-and-conditions.php",
+  'sign-in' => "views/signin.php",
+  'sign-up' => "views/signup.php",
+  'referral' => "views/signup.php",
 
   'confirm-email' => "{$generic->dashboard}views/client-confirm-email.php",
   'kyc-verification' => "{$generic->dashboard}views/client-kyc.php",
-  'sign-up' => "{$generic->dashboard}views/client-signup.php",
-  'referral' => "{$generic->dashboard}views/client-signup.php",
-  'sign-in' => "{$generic->dashboard}views/client-signin.php",
-  'sign-out' => "{$generic->dashboard}includes/client-auth-redirect.php",
+  // 'sign-up' => "{$generic->dashboard}views/client-signup.php",
+  // 'sign-in' => "{$generic->dashboard}views/client-signin.php",
+  'sign-out' => "views/client-auth-redirect.php",
   'account' => "{$generic->dashboard}views/client-dashboard.php",
   'trading' => "{$generic->dashboard}views/client-trading.php",
   'invest' => "{$generic->dashboard}views/client-invest.php",
@@ -52,7 +55,7 @@ $valid_pages = [
   'operations' => "{$generic->dashboard}views/client-payment.php",
   'join-affiliate' => "{$generic->dashboard}views/client-settings.php",
 ];
-$cache_control = "?preloaders";
+$cache_control = "?mail";
 $company->logo_ref .= $cache_control;
 $company->favicon .= $cache_control;
 $company->favicon2 .= $cache_control;

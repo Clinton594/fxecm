@@ -7,7 +7,7 @@ require_once("../controllers/GeckoExchange.php");
 
 $currency = $paramControl->load_sources("currency");
 $session = object($_SESSION);
-$exclusions = ["account-updates", "getReferrals", "sendLoanRequest", "finance"];
+$exclusions = ["account-updates", "getReferrals", "sendLoanRequest", "finance", "send-mail"];
 if (!in_array($post->case, $exclusions)) {
 	if (empty($session->user_id)) die("Access Denied");
 }
@@ -499,6 +499,9 @@ switch ($post->case) {
 			$response->data = $data;
 		}
 		$response->status = 1;
+		break;
+	case 'send-mail':
+		$response = sendmail($post);
 		break;
 
 	default:

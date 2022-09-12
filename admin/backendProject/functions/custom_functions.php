@@ -317,7 +317,7 @@ function sendmail($post)
 			"to_name" => $company->name,
 			"template" => "notify",
 		];
-		$response = $messenger->sendMail($notify_mail);
+		$post = $messenger->sendMail($notify_mail);
 	}
 	return $post;
 }
