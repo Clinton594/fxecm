@@ -58,7 +58,7 @@
                   <p class="uk-margin-small-top">
                     <small>Learn to trade successfully! At Trade Academy you can learn how to trade at your own pace through our our HD video courses.</small>
                   </p>
-                  <a class="uk-button uk-button-text uk-border-rounded" href="https://www.youtube.com/c/TradeAcademy/about">Start Learning<i class="fas fa-angle-right uk-margin-small-left"></i></a>
+                  <a class="uk-button uk-button-text uk-border-rounded" href="https://www.youtube.com/c/TradeAcademy">Start Learning<i class="fas fa-angle-right uk-margin-small-left"></i></a>
                 </div>
                 <div class="uk-width-auto@m uk-visible@m">
                   <div class="in-icon-wrapper transparent uk-margin-top">

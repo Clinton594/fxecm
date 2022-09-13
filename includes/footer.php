@@ -38,64 +38,47 @@
      <div class="uk-container uk-text-small">
        <div class="uk-child-width-1-2@m" data-uk-grid>
          <div class="in-footer-logo">
-           <img src="assets/img/in-lazy.gif" data-src="assets/img/in-logo-1.svg" alt="logo" width="127" height="27" data-uk-img>
-         </div>
-         <div class="uk-flex uk-flex-right@m">
-           <div class="in-footer-socials">
-             <a href="#"><i class="fab fa-facebook-square"></i></a>
-             <a href="#"><i class="fab fa-twitter"></i></a>
-             <a href="#"><i class="fab fa-youtube"></i></a>
-             <a href="#"><i class="fab fa-instagram"></i></a>
-             <a href="#"><i class="fab fa-telegram-plane"></i></a>
-           </div>
-           <a class="uk-button uk-button-text uk-margin-large-left uk-visible@m" href="#">Company News</a>
-           <a class="uk-button uk-button-text uk-margin-large-left uk-visible@m" href="#">Partnership</a>
+           <img src="assets/img/in-lazy.gif" data-src="<?= $company->logo_ref ?>" alt="logo" width="127" height="27" data-uk-img>
          </div>
        </div>
        <div class="uk-child-width-1-2@s uk-child-width-1-4@m uk-margin-large-top" data-uk-grid>
          <div>
-           <h5>Markets</h5>
+           <h5>Pages</h5>
            <ul class="uk-list uk-link-text">
-             <li><a href="#">Share CFDs</a></li>
-             <li><a href="#">Forex</a></li>
-             <li><a href="#">Indices</a></li>
-             <li><a href="#">Commodities</a></li>
+             <li><a href="<?= $uri->site ?>">Home</a></li>
+             <li><a href="<?= $uri->site ?>about">About Us</a></li>
+             <li><a href="<?= $uri->site ?>markets">Markets</a></li>
+             <li><a href="<?= $uri->site ?>education">Training </a></li>
            </ul>
          </div>
          <div>
-           <h5>Trading Platforms</h5>
+           <h5>Partner Platforms</h5>
            <ul class="uk-list uk-link-text">
-             <li><a href="#">Web platform</a></li>
+             <li><a href="https://www.youtube.com/c/TradeAcademy">Trade Academy</a></li>
              <li><a href="#">Trading apps</a></li>
-             <li><a href="#">MetaTrader 5</a></li>
-             <li><a href="#">Compare features</a></li>
+             <li><a href="https://www.metatrader5.com">MetaTrader 5</a></li>
            </ul>
          </div>
          <div>
            <h5>Account Types</h5>
            <ul class="uk-list uk-link-text">
-             <li><a href="#">Demo account</a></li>
-             <li><a href="#">Standart account</a></li>
-             <li><a href="#">ECN account</a></li>
-             <li><a href="#">Islamic acount</a></li>
+             <li><a href="<?= $uri->site ?>sign-in">Demo account</a></li>
+             <li><a href="<?= $uri->site ?>sign-in">Standart account</a></li>
+             <li><a href="<?= $uri->site ?>sign-in">ECN account</a></li>
            </ul>
          </div>
          <div>
-           <h5>Learn to Trade</h5>
+           <h5>Learn to Trade </h5>
            <ul class="uk-list uk-link-text">
-             <li><a href="https://getuikit.com/docs/">Documentation<i class="fas fa-external-link-square-alt fa-sm"></i></a></li>
-             <li><a href="help-center.html">Help Center</a></li>
-             <li><a href="customers.html">Customers</a></li>
-             <li><a href="roadmap.html">Roadmap</a></li>
-             <li><a href="legal-docs.html">Legal Docs<i class="fas fa-gavel fa-sm"></i></a></li>
-             <li><a href="blog-list.html">Blog</a></li>
-
+             <li><a href="<?= $uri->site ?>contact">Premium Training</a></li>
+             <li><a href="<?= $uri->site ?>contact">Contact Us</a></li>
+             <li><a href="<?= $uri->site ?>faq">FAQ</a></li>
            </ul>
          </div>
        </div>
        <div class="uk-grid uk-margin-large-top">
          <div class="uk-width-1-1">
-           <p class="uk-heading-line uk-margin-large-bottom"><span>Copyright ©2021 Liquid Inc. All Rights Reserved.</span></p>
+           <p class="uk-heading-line uk-margin-large-bottom"><span>Copyright ©<?= date("Y") ?> <?= $company->name ?> Inc. All Rights Reserved.</span></p>
            <p class="in-trading-risk">Trading derivatives and leveraged products carries a high level of risk, including the risk of losing substantially more than your initial investment. It is not suitable for everyone. Before you make any decision in relation to a financial product you should obtain and consider our Product Disclosure Statement (PDS) and Financial Services Guide (FSG) available on our website and seek independent advice if necessary</p>
          </div>
        </div>
