@@ -40,7 +40,7 @@
               <div class="uk-grid-medium" data-uk-grid>
                 <div class="uk-width-1-2@s">
                   <div class="uk-overlay">
-                    <h1>New standard<br>in stock broker.</h1>
+                    <h1><?= $company->name ?></h1>
                     <p class="uk-text-lead">Trade forex, commodities, synthetic and stock indices from a single account</p>
                     <a href="<?= $uri->site ?>sign-up" class="uk-button uk-button-default uk-border-rounded uk-visible@m">Open Account</a>
                   </div>
