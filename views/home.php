@@ -5,6 +5,23 @@
 <head>
   <title>Home - <?= $company->name ?></title>
   <?php require_once("includes/links.php") ?>
+  <style>
+    @media screen and (max-width: 760px) {
+      .uk-slideshow-items {
+        min-height: 75vh !important;
+      }
+
+      .uk-slideshow-items h1 {
+        min-height: unset !important;
+      }
+
+
+      .uk-slideshow-items .uk-text-lead {
+        display: block !important;
+        font-size: small !important;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -24,8 +41,8 @@
                 <div class="uk-width-1-2@s">
                   <div class="uk-overlay">
                     <h1>New standard<br>in stock broker.</h1>
-                    <p class="uk-text-lead uk-visible@m">Trade forex, commodities, synthetic and stock indices from a single account</p>
-                    <a href="<?= $uri->site ?>sign-up" class="uk-button uk-button-default uk-border-rounded uk-visible@s">Open Account</a>
+                    <p class="uk-text-lead">Trade forex, commodities, synthetic and stock indices from a single account</p>
+                    <a href="<?= $uri->site ?>sign-up" class="uk-button uk-button-default uk-border-rounded uk-visible@m">Open Account</a>
                   </div>
                 </div>
                 <div class="uk-width-1-2@s">
@@ -342,7 +359,7 @@
                       <br>
                       <small><b>ROI</b> - <?= $plan->auto ?>%</small>
                     </p>
-                    <a href="<?= $uri->site ?>invest" style="font-size: xx-small; line-height:33px" class="uk-button uk-button-default uk-border-rounded uk-visible@s">Proceed</a>
+                    <a href="<?= $uri->site ?>invest" style="font-size: xx-small; line-height:33px" class="uk-button uk-button-default uk-border-rounded">Proceed</a>
                   </div>
                 <?php } ?>
               </div>

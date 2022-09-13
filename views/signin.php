@@ -40,7 +40,7 @@
               <div class="uk-width-3-5@m">
                 <div class="in-padding-horizontal@s">
                   <!-- logo begin -->
-                  <a class="uk-logo" href="index-2.html">
+                  <a class="uk-logo" href="<?= $uri->site ?>">
                     <img src="<?= $company->favicon2 ?>" data-src="<?= $company->favicon2 ?>" alt="logo" width="160" height="34" data-uk-img>
                   </a>
                   <!-- logo end -->

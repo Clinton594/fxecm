@@ -11,6 +11,12 @@
       min-height: 100vh;
     }
 
+    .uk-input,
+    .uk-select,
+    .uk-textarea {
+      font-size: small;
+    }
+
     .mt {
       margin-top: 20px;
     }
@@ -70,12 +76,34 @@
                       <input class="uk-input uk-border-rounded" id="phone" value="" name="phone" required type="tel" placeholder="Phone">
                     </div>
                     <div class="uk-margin-small uk-width-1-2 uk-inline">
+                      <label for="gender">
+                        <small>Gender</small>
+                      </label>
+                      <span class="uk-form-icon uk-form-icon-flip mt fas fa-person fa-sm"></span>
+                      <select required name="gender" class="uk-input uk-border-rounded" id="">
+                        <option value="m">Male</option>
+                        <option value="f">Female</option>
+                      </select>
+                    </div>
+                    <div class="uk-margin-small uk-width-1-2 uk-inline">
+                      <label for="country">
+                        <small>Country</small>
+                      </label>
+                      <span class="uk-form-icon uk-form-icon-flip mt fas fa-home fa-sm"></span>
+                      <select required name="country" class="uk-input uk-border-rounded" id="">
+                        <?php foreach ($paramControl->load_sources("countries") as $k => $value) { ?>
+                          <option value="<?= $k ?>"><?= $value ?></option>
+                        <?php }  ?>
+                      </select>
+                    </div>
+                    <div class="uk-margin-small uk-width-1-2 uk-inline">
                       <label for="password">
                         <small>Password</small>
                       </label>
                       <span class="uk-form-icon uk-form-icon-flip mt fas fa-secure fa-sm"></span>
                       <input class="uk-input uk-border-rounded" id="password" value="" name="password" required type="password" placeholder="Password">
                     </div>
+
                     <div class="uk-margin-small uk-width-1-2 uk-inline">
                       <label for="password2">
                         <small>Confirm Password</small>
@@ -85,7 +113,19 @@
                     </div>
 
 
-
+                    <?php if ($uri->page_source == "referral" && !empty($uri->content_id)) { ?>
+                      <div class="uk-margin-small uk-width-1-1 uk-inline">
+                        <input type="hidden" name="referral" value="<?= $uri->content_id ?>">
+                        <div class="form-control">Referred by <strong><?= strtoupper($uri->content_id) ?></strong></div>
+                      </div>
+                      <hr>
+                    <?php } ?>
+                    <div class="uk-margin-small uk-width-1-1 uk-inline">
+                      <div class="custom-control custom-checkbox">
+                        <input required type="checkbox" name="agree" class="custom-control-input" id="agree" />
+                        <label class="custom-control-label" for="agree">I agree with the <a href="<?= $uri->site ?>terms">terms and conditions</a></label>
+                      </div>
+                    </div>
                     <div class="uk-margin-small uk-width-1-1">
                       <button class="submit uk-button uk-width-1-1 uk-button-primary uk-border-rounded uk-float-left" type="submit" name="submit">Sign in</button>
                     </div>

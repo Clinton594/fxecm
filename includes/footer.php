@@ -106,7 +106,7 @@
    <div class="uk-visible@m">
      <a href="#" class="in-totop fas fa-chevron-up" data-uk-scroll></a>
    </div>
-   <!-- totop end -->
+   <?php require_once("includes/support.php") ?>
  </footer>
  <!-- Javascript -->
  <script src="<?= $uri->site ?>assets/js/vendors/uikit.min.js"></script>

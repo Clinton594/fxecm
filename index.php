@@ -55,7 +55,7 @@ $valid_pages = [
   'operations' => "{$generic->dashboard}views/client-payment.php",
   'join-affiliate' => "{$generic->dashboard}views/client-settings.php",
 ];
-$cache_control = "?mail";
+$cache_control = "?rul";
 $company->logo_ref .= $cache_control;
 $company->favicon .= $cache_control;
 $company->favicon2 .= $cache_control;
