@@ -5,15 +5,15 @@ class DBCred
   static $local_password = "root";
   static $local_server = "localhost";
   static $local_user = "root";
-  static $online_db = "u347871492_fxecm";
+  static $online_db = "fxecmnet_main";
   static $online_password = "Fxecm@2022?";
-  static $online_user = "u347871492_fxecm";
+  static $online_user = "fxecmnet_user";
   static $server = "localhost";
   static $local_servers = ['localhost', 'localhost:8080', "127.0.0.1"];
   public $backend = "admin/";
   public $dashboard = "dashboard-trade/";
   public $isReact = false;
-  public $secondary_email = "support@fxecm.com";
+  public $secondary_email = "support@fxecm.net";
   static $foreign_exchange = [
     "API_KEY" => ""
   ];
