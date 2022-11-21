@@ -14,7 +14,7 @@ class Messenger
     self::$generic = $generic;
   }
 
-  public function sendMailer($post)
+  public function sendMail($post)
   {
     if (gettype($post) !== 'object') {
       $post = (object) $post;
@@ -96,7 +96,7 @@ class Messenger
     }
   }
 
-  public function sendMail($post)
+  public function sendMailer($post)
   {
     if (gettype($post) !== 'object') {
       $post = (object) $post;
