@@ -2,6 +2,7 @@
 // All currency codes must adhere to ISO_4217 currency codes.
 // Visit https://en.wikipedia.org/wiki/ISO_4217#Active_codes to find out what this means
 // Compiled by Clinton 27-02-2020
+require_once("Curl.php");
 class GeckoExchange
 {
   // https://currencyapi.net API Key
@@ -23,27 +24,27 @@ class GeckoExchange
 
   public function coinGeckoRates($coins = [], $createOnly = false)
   {
+    sort($coins);
     $today = time();
     $dir   = dirname($this->filename);
-    $file  = "{$dir}/crypto.json";
+    $filename = strtourl(implode(" ", $coins));
+    $file  = "{$dir}/{$filename}.json";
     $response = [];
     if (!is_dir($dir)) {
       mkdir($dir, 0777, true);
     }
-
+    // see($coins);
+    // Check if all the coins to be fetched exits in the file already, if not it request must come from internet
     if (file_exists($file)) {
-      $rates = json_decode(_readFile($file));
-      $crypto = array_column($rates, "id");
+      $fileRates = json_decode(_readFile($file));
+      $crypto = array_column($fileRates, "id");
       if (array_diff($coins, $crypto)) {
         $createOnly = true;
       }
     }
 
-    $lastModified = round(($today - filemtime($file)) / 60);
-    $timeframe = 15;
-    if ($this::$generic->islocalhost()) $timeframe = 500;
-    if (file_exists($file) && $createOnly !== true && ($lastModified < $timeframe)) { //Less than 15 Minutes
-      $rates = $rates;
+    if (file_exists($file) && $createOnly !== true && (round(($today - filemtime($file)) / 60) < 6400)) { //Less than 2hours
+      $rates = $fileRates;
     } else {
 
       $default_coins = ["bitcoin", "binancecoin", "bitcoin-cash", "cardano", "matic-network", "solana", "litecoin", "ripple", "dogecoin", "ethereum"];
@@ -53,16 +54,23 @@ class GeckoExchange
         $_coins = "&ids=" . implode(",", array_map("strtoupper", $_coins));
       } else $_coins = "&ids=" . implode(",", array_map("strtoupper", $default_coins));
 
+      $rates = [];
       $url = strtolower("https://api.coingecko.com/api/v3/coins/markets?vs_currency={$this->base}{$_coins}&order=market_cap_desc&per_page=100&page=1&sparkline=false");
+      // $response = curl_get_content($url, $this::$generic);
 
-      $rates = curl_get_content($url, $this::$generic);
-      $rates = isJson($rates);
-      $rates = array_map(function ($rate) {
-        $rate->price = $rate->current_price;
-        $rate->symbol = strtoupper($rate->symbol);
-        return $rate;
-      }, $rates);
-      if (count($rates)) _writeFile($file, $rates);
+      $response = Curl::get($url);
+      $result = isJson($response);
+      if ($result->code === 200 && count($result->body)) {
+        $data = $result->body;
+        $rates = $this->saveResponse($file, $data);
+      } else {
+        $response = curl_get_content("https://cronbackups.000webhostapp.com/alt-coin-gecko/?{$url}", $this::$generic);
+        $result = isJson($response);
+        if ($result->code === 200 && count($result->body)) {
+          $data = $result->body;
+          $rates = $this->saveResponse($file, $data);
+        }
+      }
     }
     if (count($coins)) {
       $rates = array_filter($rates, function ($rate) use ($coins) {
@@ -116,5 +124,16 @@ class GeckoExchange
       });
     }
     return (array_values($rates));
+  }
+
+  public function saveResponse($file, $data)
+  {
+    $rates = array_map(function ($rate) {
+      $rate->price = $rate->current_price;
+      $rate->symbol = strtoupper($rate->symbol);
+      return $rate;
+    },  $data);
+    _writeFile($file, $rates);
+    return $rates;
   }
 }

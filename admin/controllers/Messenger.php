@@ -1,5 +1,6 @@
 <?php
 require_once "PHPMailer.php";
+require_once "Curl.php";
 require_once __DIR__ . '../../vendor/autoload.php';
 
 use Twilio\Rest\Client;
@@ -153,16 +154,17 @@ class Messenger
         ]
       ]
     ];
-    try {
-      $mailchimp = new MailchimpTransactional\ApiClient();
-      $mailchimp->setApiKey($mailKey);
-      $response = $mailchimp->messages->send(["message" => $message]);
-      $response->status = 1;
-    } catch (Error $e) {
-      $response->status = 0;
-      $response->message = 'Error Sending email to ' . $post->to;
-      echo 'Error: ', $e->getMessage(), "\n";
-    }
+    $response = Curl::post("https://mandrillapp.com/api/1.0/messages/send", ["message" => $message, "key" => $mailKey]);
+    // try {
+    //   $mailchimp = new MailchimpTransactional\ApiClient();
+    //   $mailchimp->setApiKey($mailKey);
+    //   $response = $mailchimp->messages->send(["message" => $message]);
+    //   $response->status = 1;
+    // } catch (Error $e) {
+    //   $response->status = 0;
+    //   $response->message = 'Error Sending email to ' . $post->to;
+    //   echo 'Error: ', $e->getMessage(), "\n";
+    // }
     return $response;
   }
 
