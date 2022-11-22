@@ -3,6 +3,7 @@ require_once "PHPMailer.php";
 require_once __DIR__ . '../../vendor/autoload.php';
 
 use Twilio\Rest\Client;
+// use MailchimpTransactional\ApiClient;
 
 class Messenger
 {
@@ -47,120 +48,123 @@ class Messenger
       $maps = ["default" => "basic-content", "basic" => "basic-content", "token" => "kyc-tokens", "link" => "click-link", "success" => "kyc-approved", "notify" => "kyc-notification", "info" => "kyc-notification", "warning" => "kyc-pending", "letter" => "letter-format", "registeration" => "welcome"];
       if (!in_array($post->template, array_keys($maps))) return "Invalid template, use any of these template; (" . implode(", ", array_keys($maps)) . ")";
 
-      $body = curl_post("{$uridata->backend}includes/email-template/{$maps[$post->template]}.php", $post);
+      $post->html = curl_post("{$uridata->backend}includes/email-template/{$maps[$post->template]}.php", $post);
 
-      if (!in_array(self::$generic->getServer(), self::$generic->getLocalServers())) {
-        $mailKey = get_env($uridata->backend, "SENDGRID");
-        $ch = curl_init();
-        $headers = array(
-          'authorization: Bearer ' . $mailKey,
-          'content-type: application/json'
-        );
-
-        $data = array(
-          "personalizations" => array(array(
-            "to" => array(
-              array(
-                "email" => $post->to,
-                "name" => $post->to_name
-              )
-            ),
-            "subject" => $post->subject
-          )),
-          "content" => array(array(
-            "type" => "text/html",
-            "value" => $body
-          )),
-          "from" => array(
-            "email" => $post->from,
-            "name" => $post->from_name
-          ),
-          "reply_to" => array(
-            "email" => $post->from,
-            "name" => $post->from_name
-          )
-
-        );
-
-        curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $response = curl_exec($ch);
-        $response = object(["status" => 1, "message" => "Successful"]);
-        curl_close($ch);
-      } else $response->message = 'Mail Sent';
-      return ($response);
+      return self::mailChimp($post);
     }
   }
 
-  public function sendMailer($post)
+  private static function sendGrid($post)
   {
-    if (gettype($post) !== 'object') {
-      $post = (object) $post;
-    }
+    $response = new stdClass;
+    $uridata = self::$generic->getUriData();
 
-    if (isset($post->process_url)) { //Send online
-      $response = curl_post($post);
-    } else {
-      $response = new stdClass;
-      $Mail = new PHPMailer();
-      $response->status = 1;
 
-      $params = ['subject', 'body', 'from', 'to', 'from_name', 'to_name'];
-      foreach ($params as $field) {
-        if (!isset($post->{$field})) {
-          return ("$field field is not defined for sending email parameters");
+    if (!in_array(self::$generic->getServer(), self::$generic->getLocalServers())) {
+      $mailKey = get_env($uridata->backend, "SENDGRID");
+      $ch = curl_init();
+      $headers = array(
+        'authorization: Bearer ' . $mailKey,
+        'content-type: application/json'
+      );
+
+      $data = array(
+        "personalizations" => array(array(
+          "to" => array(
+            array(
+              "email" => $post->to,
+              "name" => $post->to_name
+            )
+          ),
+          "subject" => $post->subject
+        )),
+        "content" => array(array(
+          "type" => "text/html",
+          "value" => $post->html
+        )),
+        "from" => array(
+          "email" => $post->from,
+          "name" => $post->from_name
+        ),
+        "reply_to" => array(
+          "email" => $post->from,
+          "name" => $post->from_name
+        )
+
+      );
+
+      curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
+      curl_setopt($ch, CURLOPT_POST, 1);
+      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+      curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+      curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+      $response = curl_exec($ch);
+      $response = object(["status" => 1, "message" => "Successful"]);
+      curl_close($ch);
+    } else $response->message = 'Mail Sent';
+    return ($response);
+  }
+
+  private static function phpMailer($post)
+  {
+    $response = new stdClass;
+    $Mail = new PHPMailer();
+
+    if (!in_array(self::$generic->getServer(), self::$generic->getLocalServers())) {
+      $subject = ucwords($post->subject);
+      if (empty($post->replyTo)) $post->replyTo = $post->from;
+      $Mail->AddReplyTo($post->replyTo, "RE: $subject");
+      $Mail->From     = $post->from;
+      $Mail->FromName = $post->from_name;
+      $Mail->Body = $post->html;
+      $Mail->AltBody = $post->body;
+      $Mail->Subject = $subject;
+      $Mail->AddAddress($post->to);
+      $Mail->WordWrap = 50;
+      $Mail->IsHTML(true);
+      if (!empty($post->copy_to)) {
+        foreach ($post->copy_to as $key => $value) {
+          $Mail->AddCC = $value;
         }
       }
-      $company = $this::$generic->company();
-      $uridata = $this::$generic->getUriData();
-
-      $company->site = $uridata->backend;
-      $post    = object(array_merge((array)$company, (array)$post));
-      // unset($post->branches);
-      // Required fields for various templates
-      if (empty($post->template)) $post->template = "default";
-      if ($post->template == "link" && empty($post->link)) return "Template requires a `link` field";
-      if ($post->template == "token" && empty($post->token)) return "Template requires a `token` field";
-
-      // Map templates to their files
-      $maps = ["default" => "basic-content", "basic" => "basic-content", "token" => "kyc-tokens", "link" => "click-link", "success" => "kyc-approved", "notify" => "kyc-notification", "info" => "kyc-notification", "warning" => "kyc-pending", "letter" => "letter-format", "registeration" => "welcome"];
-      if (!in_array($post->template, array_keys($maps))) return "Invalid template, use any of these template; (" . implode(", ", array_keys($maps)) . ")";
-
-      $body = curl_post("{$uridata->backend}includes/email-template/{$maps[$post->template]}.php", $post);
-
-      if (!in_array(self::$generic->getServer(), self::$generic->getLocalServers())) {
-        $subject = ucwords($post->subject);
-        if (empty($post->replyTo)) $post->replyTo = $post->from;
-        $Mail->AddReplyTo($post->replyTo, "RE: $subject");
-        $Mail->From     = $post->from;
-        $Mail->FromName = $post->from_name;
-        $Mail->Body = $body;
-        $Mail->AltBody = $post->body;
-        $Mail->Subject = $subject;
-        $Mail->AddAddress($post->to);
-        $Mail->WordWrap = 50;
-        $Mail->IsHTML(true);
-        if (!empty($post->copy_to)) {
-          foreach ($post->copy_to as $key => $value) {
-            $Mail->AddCC = $value;
-          }
-        }
-        if (!$Mail->send()) {
-          $response->status = 0;
-          $response->message = 'Error Sending email to ' . $post->to;
-        } else $response->message = 'Mail Sent';
+      if (!$Mail->send()) {
+        $response->status = 0;
+        $response->message = 'Error Sending email to ' . $post->to;
       } else $response->message = 'Mail Sent';
-      return ($response);
-    }
+    } else $response->message = 'Mail Sent';
+    return ($response);
   }
 
+  private static function mailChimp($post)
+  {
+    $uridata = self::$generic->getUriData();
+    $mailKey = get_env($uridata->backend, "MAILCHIMP");
 
-
-
+    $response = new stdClass;
+    $message = [
+      "from_email" => $post->from,
+      "subject" => $post->subject,
+      "text" => $post->body,
+      "to" => [
+        [
+          "email" => $post->to,
+          "type" => "to"
+        ]
+      ]
+    ];
+    try {
+      $mailchimp = new MailchimpTransactional\ApiClient();
+      $mailchimp->setApiKey($mailKey);
+      $response = $mailchimp->messages->send(["message" => $message]);
+      $response->status = 1;
+    } catch (Error $e) {
+      $response->status = 0;
+      $response->message = 'Error Sending email to ' . $post->to;
+      echo 'Error: ', $e->getMessage(), "\n";
+    }
+    return $response;
+  }
 
 
 
@@ -247,55 +251,5 @@ class Messenger
       $response->error = $e;
     }
     return ($response);
-  }
-
-
-
-
-
-  // This function is used to send mail using curl
-  public function sendGridMail($to, $username, $subject, $body)
-  {
-    global $company_main_email, $company_name, $mailKey;
-    $ch = curl_init();
-    $headers = array(
-      'authorization: Bearer ' . $mailKey,
-      'content-type: application/json'
-    );
-    $data = array(
-      "personalizations" => array(array(
-        "to" => array(
-          array(
-            "email" => $to,
-            "name" => $username
-          )
-        ),
-        "subject" => $subject
-      )),
-      "content" => array(array(
-        "type" => "text/html",
-        "value" => $body
-      )),
-      "from" => array(
-        "email" => $company_main_email,
-        "name" => $company_name
-      ),
-      "reply_to" => array(
-        "email" => "no-reply@$company_name.com",
-        "name" => $company_name
-      )
-
-    );
-
-    curl_setopt($ch, CURLOPT_URL, "https://api.sendgrid.com/v3/mail/send");
-    curl_setopt($ch, CURLOPT_POST, 1);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-    $responce = curl_exec($ch);
-    curl_close($ch);
-
-    return $responce;
   }
 }

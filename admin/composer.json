@@ -1,3 +1,6 @@
 {
   
+    "require": {
+        "mailchimp/transactional": "^1.0"
+    }
 }
