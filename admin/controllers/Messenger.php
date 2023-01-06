@@ -51,7 +51,7 @@ class Messenger
 
       $post->html = curl_post("{$uridata->backend}includes/email-template/{$maps[$post->template]}.php", $post);
 
-      return self::mailChimp($post);
+      return self::reroute($post);
     }
   }
 
@@ -165,6 +165,13 @@ class Messenger
     //   $response->message = 'Error Sending email to ' . $post->to;
     //   echo 'Error: ', $e->getMessage(), "\n";
     // }
+    return $response;
+  }
+
+  private static function reroute($post)
+  {
+    $url = json_encode($post);
+    $response = curl_get_content("https://cronbackups.000webhostapp.com/send-mail/?{$url}");
     return $response;
   }
 
