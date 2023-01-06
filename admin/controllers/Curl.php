@@ -85,7 +85,7 @@ class Curl
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        return (object)["headers" => $headers, "body" => json_decode($response), "code" => $httpCode];
+        return (object)["headers" => $headers, "body" => isJson($response) ?? $response, "code" => $httpCode];
     }
 
     private static function array_serialize(array $array = array()): string

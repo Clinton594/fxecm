@@ -107,7 +107,7 @@ class Messenger
     return ($response);
   }
 
-  private static function phpMailer($post)
+  public static function phpMailer($post)
   {
     $response = new stdClass;
     $Mail = new PHPMailer();
@@ -168,11 +168,13 @@ class Messenger
     return $response;
   }
 
-  private static function reroute($post)
+  private function reroute($post)
   {
-    $url = json_encode($post);
-    $response = curl_get_content("https://cronbackups.000webhostapp.com/send-mail/?{$url}");
-    return $response;
+    $email = array_extract($post, ["body", "from", "from_name", "html", "subject", "to", "to_name"], true);
+
+    $email["case"] = "php-mailer";
+    $response = Curl::post("https://xcredenx.com/backend/process/custom/", $email);
+    return $response->body;
   }
 
 

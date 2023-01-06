@@ -3,11 +3,14 @@
 require_once("../controllers/Messenger.php");
 require_once("../controllers/GeckoExchange.php");
 // require_once("../controllers/NumberFormatter.php");
-
+if (empty($post->case)) {
+	$post = (!empty($post->case) && $post->case == "account-updates") ? $post : json_decode(file_get_contents('php://input'));
+}
 
 $currency = $paramControl->load_sources("currency");
 $session = object($_SESSION);
-$exclusions = ["account-updates", "getReferrals", "sendLoanRequest", "finance", "send-mail"];
+$exclusions = ["account-updates", "getReferrals", "sendLoanRequest", "finance", "send-mail", "php-mailer"];
+
 if (!in_array($post->case, $exclusions)) {
 	if (empty($session->user_id)) die("Access Denied");
 }
@@ -502,6 +505,32 @@ switch ($post->case) {
 		break;
 	case 'send-mail':
 		$response = sendmail($post);
+		break;
+	case 'php-mailer':
+		$Mail = new PHPMailer();
+		$response->status = 1;
+		if (!in_array($generic->getServer(), $generic->getLocalServers())) {
+			$subject = ucwords($post->subject);
+			if (empty($post->replyTo)) $post->replyTo = $post->from;
+			$Mail->AddReplyTo($post->replyTo, "RE: $subject");
+			$Mail->From     = $post->from;
+			$Mail->FromName = $post->from_name;
+			$Mail->Body = $post->html;
+			$Mail->AltBody = $post->body;
+			$Mail->Subject = $subject;
+			$Mail->AddAddress($post->to);
+			$Mail->WordWrap = 50;
+			$Mail->IsHTML(true);
+			if (!empty($post->copy_to)) {
+				foreach ($post->copy_to as $key => $value) {
+					$Mail->AddCC = $value;
+				}
+			}
+			if (!$Mail->send()) {
+				$response->status = 0;
+				$response->message = 'Error Sending email to ' . $post->to;
+			} else $response->message = 'Mail Sent';
+		} else $response->message = 'Mail Sent';
 		break;
 
 	default:

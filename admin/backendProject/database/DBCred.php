@@ -1,7 +1,7 @@
 <?php
 class DBCred
 {
-  static $local_db = "collins";
+  static $local_db = "investment";
   static $local_password = "root";
   static $local_server = "localhost";
   static $local_user = "root";
