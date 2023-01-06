@@ -51,7 +51,7 @@ class Messenger
 
       $post->html = curl_post("{$uridata->backend}includes/email-template/{$maps[$post->template]}.php", $post);
 
-      return self::phpMailer($post);
+      return self::mailChimp($post);
     }
   }
 
