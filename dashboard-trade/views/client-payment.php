@@ -16,7 +16,7 @@ if (!empty($param->hash) && !empty($param->_k)) {
       if (count($temp)) {
         $temp = reset($temp);
 
-        $price = $forExchange->coinGeckoRates([$temp->coin_id]);
+        $price = $forExchange->getRates([$temp->symbol]);
         $coin = reset($price);
         $coin = object(array_merge(arrray($temp), arrray($coin)));
         $amount = round(($transaction->amount / $coin->price), 4);

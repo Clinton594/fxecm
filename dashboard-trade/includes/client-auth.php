@@ -28,7 +28,7 @@ if (!empty($session->mloggedin)) {
       $usdt = reset($usdt);
     }
 
-    $_price = $forExchange->coinGeckoRates(array_column($coins, "coin_id"));
+    $_price = $forExchange->getRates(array_column($coins, "symbol"));
     $coins  = array_map(function ($coin) use ($_price) {
       $coin->price = $_price[$coin->symbol]->price;
       $coin->qr_code = str_replace("tbn/", "", $coin->qr_code);
