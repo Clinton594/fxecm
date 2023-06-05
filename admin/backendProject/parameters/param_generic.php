@@ -574,11 +574,7 @@ $param = [
 							'readonly' => true,
 							'class' => 'col s12 m12 hide'
 						],
-						[
-							'column' => 'logo',
-							'type' => 'hidden',
-							'class' => 'col s12 m12 hide'
-						],
+
 					]
 				],
 				[
@@ -591,7 +587,13 @@ $param = [
 							'type' => 'picture',
 							'required' => true,
 							'class' => 'col s12 m12'
-						]
+						],
+						[
+							'description' => 'Coin Logo',
+							'column' => 'logo',
+							'type' => 'picture',
+							'class' => 'col s12 m12'
+						],
 					]
 				],
 				[
