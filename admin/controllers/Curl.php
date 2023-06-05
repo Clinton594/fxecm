@@ -11,18 +11,22 @@ class Curl
         "Accept: application/json",
     ];
 
-    public static function get(string $endpoint, array $param = [])
+    public static function get(string $endpoint, array $param = [], array $http_headers = [])
     {
         // Build Param Query
-        $headers = [];
+        $headers = $setHeaders = [];
         $query = "";
         if (count($param)) {
             $query = self::array_serialize($param);
         }
+        foreach ($http_headers as $key => $value) {
+            $setHeaders[] = "{$key}: {$value}";
+        }
+
         // Initialize CURL
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $endpoint . $query);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, self::$headers);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array_merge(self::$headers, $setHeaders));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         if (self::$return_headers) {
             curl_setopt(
@@ -44,22 +48,24 @@ class Curl
         $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        return (object)["headers" => $headers, "body" => json_decode($response), "code" => $httpCode];
+        return (object)["headers" => $headers, "body" => isJson($response) ?? $response, "code" => $httpCode];
     }
 
-    public static function post(string $endpoint, array $param = [])
+    public static function post(string $endpoint, array $param = [], array $http_headers = [])
     {
         // Build Param Query
-        $headers = [];
+        $headers = $setHeaders = [];
         $post_fields =  "";
         if (count($param)) {
             $post_fields = urldecode(json_encode($param));
         }
-
+        foreach ($http_headers as $key => $value) {
+            $setHeaders[] = "{$key}: {$value}";
+        }
         // Initialize CURL
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,  $endpoint);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, self::$headers);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array_merge(self::$headers, $setHeaders));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
 
         curl_setopt($ch, CURLOPT_POST, TRUE);
@@ -99,5 +105,10 @@ class Curl
             }
         }
         return "?" . implode("&", $build);
+    }
+
+    public static function setHeader($string)
+    {
+        array_push(self::$headers, $string);
     }
 }

@@ -654,9 +654,11 @@ function remove_tbn($string = '')
 }
 
 
-function get_env($path, $key)
+function get_env($key)
 {
-	$data = _readFile(absolute_filepath("{$path}.env"));
+	$generic = new Generic;
+	$uri = $generic->getURIdata();
+	$data = _readFile(absolute_filepath("{$uri->site}.env"));
 	$env = array_map(function ($x) {
 		return explode("=", $x);
 	}, explode("\n", $data));
@@ -664,4 +666,13 @@ function get_env($path, $key)
 		return $x[0] === $key;
 	});
 	return count($f) ?  reset($f)[1] : null;
+}
+
+function flatten_array($data)
+{
+	$build = [];
+	foreach (new RecursiveIteratorIterator(new RecursiveArrayIterator($data)) as $key => $value) {
+		$build[$key] = $value;
+	}
+	return gettype($data)  === "object" ? object(array_filter($build)) : array_filter($build);
 }

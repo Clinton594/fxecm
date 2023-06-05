@@ -173,8 +173,8 @@ function manageAccount($post)
 					$message = $response->message;
 				}
 			} else {
-				$exchange = new GeckoExchange;
-				$_price = $exchange->coinGeckoRates(["bitcoin"]);
+				$exchange = new Exchange;
+				$_price = $exchange->getRates(["BTC"]);
 				if (count($_price)) {
 					$_price = reset($_price);
 
@@ -247,8 +247,8 @@ function updateProfile($post)
 function loadcoins($generic)
 {
 	$uri = $generic->getURIData();
-	require_once(absolute_filepath($uri->backend) . "controllers/GeckoExchange.php");
-	$exchange = new GeckoExchange($generic);
+	require_once(absolute_filepath($uri->backend) . "controllers/Exchange.php");
+	$exchange = new Exchange($generic);
 	// see($generic);
 	$coins = $exchange->coinGeckoList();
 	$coins = array_map(function ($coin) {
@@ -264,11 +264,11 @@ function getCoinImage($coin)
 {
 	global $generic;
 	$uri = $generic->getURIData();
-	require_once(absolute_filepath($uri->backend) . "controllers/GeckoExchange.php");
-	$exchange = new GeckoExchange();
+	require_once(absolute_filepath($uri->backend) . "controllers/Exchange.php");
+	$exchange = new Exchange();
 
 	if (empty($coin->logo)) {
-		$_coin = $exchange->coinGeckoRates([$coin->coin_id], !$generic->islocalhost());
+		$_coin = $exchange->getRates([$coin->symbol]);
 		$_coin = reset($_coin);
 		$coin->logo = $_coin->image;
 	}

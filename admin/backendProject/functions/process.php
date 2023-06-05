@@ -1,7 +1,7 @@
 <?php
 
 require_once("../controllers/Messenger.php");
-require_once("../controllers/GeckoExchange.php");
+require_once("../controllers/Exchange.php");
 // require_once("../controllers/NumberFormatter.php");
 if (empty($post->case)) {
 	$post = (!empty($post->case) && $post->case == "account-updates") ? $post : json_decode(file_get_contents('php://input'));
@@ -121,14 +121,14 @@ switch ($post->case) {
 		}
 		break;
 	case "convertCurrency": //Get Converstion Rates of local currencies and BTC against dollars
-		require_once(absolute_filepath("{$uri->backend}controllers/GeckoExchange.php"));
+
 		$post->coin = strtoupper($post->coin);
-		$exchange = new GeckoExchange;
+		$exchange = new Exchange;
 
 		$coin  	= $generic->getFromTable("coins", "symbol={$post->coin}");
 		$coin 	= reset($coin);
 
-		$usdRate  = $exchange->coinGeckoRates([$coin->coin_id]);
+		$usdRate  = $exchange->getRates([$coin->symbol]);
 		$usdRate = reset($usdRate);
 		$response->data = $fmn->format(($post->amount / $usdRate->price));
 		$response->status = 1;
@@ -138,9 +138,9 @@ switch ($post->case) {
 		$response = ["value" => round(($post->amount / $post->rate), 2)];
 		break;
 	case "getCoins": //Serverside get coin prices
-		$exchange = new GeckoExchange;
+		$exchange = new Exchange;
 		$coins  = $generic->getFromTable("coins");
-		$_price = $GeckoExchange->coinGeckoRates(array_column($coins, "coin_id"));
+		$_price = $GeckoExchange->getRates(array_column($coins, "symbol"));
 
 		$coins  = array_map(function ($coin) use ($_price) {
 			$coin->price = $_price[$coin->symbol]->price;
@@ -356,7 +356,7 @@ switch ($post->case) {
 		break;
 
 	case 'submitExchange':
-		$GeckoExchange = new GeckoExchange;
+		$GeckoExchange = new Exchange;
 		$tx_no = uniqid($session->user_id);
 
 		$coins  	= $generic->getFromTable("coins");
@@ -368,9 +368,9 @@ switch ($post->case) {
 		$temp = array_filter($coins, function ($temp) use ($post) {
 			return in_array($temp->symbol, [$post->PSys, $post->PSys2]);
 		});
-		$temp = array_column($temp, "coin_id");
+		$temp = array_column($temp, "symbol");
 
-		$_price = $GeckoExchange->coinGeckoRates($temp);
+		$_price = $GeckoExchange->getRates($temp);
 
 		$equivalence = ($post->amount * $_price[$post->PSys]->price) / $_price[$post->PSys2]->price;
 		$equivalence = $fmn->format(round($equivalence, 4));

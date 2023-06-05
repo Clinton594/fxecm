@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once("admin/controllers/Controllers.php");
-require_once("admin/controllers/GeckoExchange.php");
+require_once("admin/controllers/Exchange.php");
 
 $generic = new Generic;
 $generic->connect();
@@ -13,7 +13,7 @@ if (!empty($company->lock_site)) die("The website is currently unavailable");
 $paramControl = new ParamControl($generic);
 $session = object($_SESSION);
 
-$forExchange = new GeckoExchange;
+$forExchange = new Exchange;
 $currency = $paramControl->load_sources("currency");
 
 $ext = pathinfo($uri->page_source, PATHINFO_EXTENSION);
