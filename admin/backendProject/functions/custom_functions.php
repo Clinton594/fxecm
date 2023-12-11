@@ -295,7 +295,7 @@ function get_param_countries($data)
 {
 	$list = [];
 	foreach ($data as $key => $value) {
-		$list[mb_strtolower($key)] = $value["name"];
+		$list[strtolower($key)] = $value["name"];
 	}
 	return $list;
 }
