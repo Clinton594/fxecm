@@ -2,6 +2,7 @@
 session_start();
 require_once("admin/controllers/Controllers.php");
 require_once("admin/controllers/Exchange.php");
+require_once("admin/controllers/NumberFormatter.php");
 
 $generic = new Generic;
 $generic->connect();
@@ -22,8 +23,8 @@ if (!empty($ext)) {
   $url = str_replace(".$ext", "", $url);
   header("Location: $url");
 }
-$fmn = new NumberFormatter("en", NumberFormatter::DECIMAL);
-$fmn->setAttribute(NumberFormatter::FRACTION_DIGITS, 2);
+$fmn = new NumberFormatter();
+// $fmn->setAttribute(NumberFormatter::FRACTION_DIGITS, 2);
 
 $valid_pages = [
   '' => "views/home.php",
