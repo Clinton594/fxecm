@@ -2,7 +2,7 @@
 
 require_once("../controllers/Messenger.php");
 require_once("../controllers/Exchange.php");
-// require_once("../controllers/NumberFormatter.php");
+require_once("../controllers/NumberFormatter.php");
 if (empty($post->case)) {
 	$post = (!empty($post->case) && $post->case == "account-updates") ? $post : json_decode(file_get_contents('php://input'));
 }
@@ -15,8 +15,8 @@ if (!in_array($post->case, $exclusions)) {
 	if (empty($session->user_id)) die("Access Denied");
 }
 // $fmn = new NumberFormatter;
-$fmn = new NumberFormatter("en", NumberFormatter::DECIMAL);
-$fmn->setAttribute(NumberFormatter::FRACTION_DIGITS, 4);
+$fmn = new NumberFormatter();
+// $fmn->setAttribute(NumberFormatter::FRACTION_DIGITS, 4);
 
 
 switch ($post->case) {
